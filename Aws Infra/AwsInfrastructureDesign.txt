@@ -1,0 +1,35 @@
+AWS Infrastructure: 
+
+To design the infrastructure we will use components like  EC2, Elastic Load Balancer (ELB), Amazon RDS (for MongoDB or an alternative managed database), ECS (Elastic Container Service), Auto Scaling, and CloudWatch for monitoring. 
+
+Architecture:
+
+1) Client : User access the app via internet, request are routed to loadbalancer.
+
+2) Load Balancer : AWS Elastic Load Balancer
+	a) the load balancer distributes the requests to multiple containers running the app (EC2 instances).
+	b) this helps in balancing the load and improve overall availability.
+	
+3) Containerized app : 
+	a) we can use ECS (Elastic Container Service) with Fargate to run our containers. Each container(Docker) runs your Node.js app. 
+	b) ECS clusters will host the containers and they can also auto-scale based on load.
+	
+4) DB Layer : 
+	a) We can use Amazon RDS for mongoDB, while we can use mongoDB using Amazon RDS provides a better solution in terms of scalability.
+	b) This managed databases handle backups, replication, and scaling without manual work.
+	
+5) Elastic Cache (Redis) :
+	a) we can use AWS ElastiCache with Redis to cache frequently accessed data, improving read speed and reducing database load.
+
+6) File storage (S3) : 
+	a) Store static files like images, documents, or backups in AWS S3 for durability and easy access.
+
+7) Auto Scaling : 
+	a) we can set up auto Scaling for ECS tasks ensuring that we have the right number of resources based on the current load.
+	b) we can configure it to automatically add or remove containers or increase the database capacity during peak and off-peak times.
+	
+8) CI/CD Pipeline : 
+	a) we can implement a CI/CD pipeline to automate code deployments to EC2 or Container services enabling continuous integration and faster releases.
+	
+9) Logging and Monitoring:
+	a) Aws cloudwatch can be used to track performance, logs, monitor CPU, memory, network utilization, and database metrics.
