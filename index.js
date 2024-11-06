@@ -29,7 +29,7 @@ mongoose
 //Router embedded in index.js
 app.use("/api", authRouter());
 app.use("/api",questionRouter());
-//process.env is used to access entities from .env file
+
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });

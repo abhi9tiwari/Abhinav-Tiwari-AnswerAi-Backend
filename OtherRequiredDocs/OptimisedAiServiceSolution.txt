@@ -1,0 +1,29 @@
+Making ai implemented API Scalable : 
+
+1) Load Balancer 
+
+2) Asyn Processing with Message Queues
+	a) we can implement a queue functionality which process the api on the basis of fifo.
+	b) When a user submits a question, add it to the queue with data (user ID, question ID). This allows immediate acknowledgment of the request and prevents the server from waiting for the AI response.
+	c) Then we can use workers to consume messages from the queue. Each worker will handle AI response generation and store the results in the database.
+
+3) Caching
+	a) we can use Redis(or similar) to cache frequent requests and their responses. If a user submits a question that has been answered recently, we can retrieve the cached response immediately.
+	
+4) Data storage and retrieval
+	a) should implement consistency for Ai generated responses. Initially store only the question data and update the answer field later when the AI response is available which speeds up database operations and reduce locking
+	
+5) Notification Mechanism
+	a) can implement a notification system to inform user when the ai answer is generated
+	b) websockets can be used for notifying users.
+
+6) Auto scaling : 
+	a) a cloud infra that uses horizontal scaling can optimise the time significantly.
+	b) alerts can be set for increasing queue backlogs, errors, or Ai service realted problems.
+	
+7) Fallback and retry mechanism :
+	a) can use a fallback response incase of overwhelming response from client side
+	b) eg : “We’re currently experiencing high demand. Your answer will be delivered soon.”
+	
+8) Premium plan : 
+	a) If certain users or questions require faster responses (premium users), implement a priority-based queue. High-priority questions can be routed to tthis queue and processed with higher 	priority.

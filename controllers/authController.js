@@ -51,37 +51,60 @@ exports.signin = async (req, res) => {
             return res
                 .status(401)
                 .json({ success: false, message: "User does not exists" });
-        } else {
-            const result = await doHashValidation(password, existingUser.password);
-            if (!result) {
-                return res
-                    .status(401)
-                    .json({ success: false, message: "Invalid Credentials" });
-            }
-            //jwt token creation
-            const token = jwt.sign(
-                {
-                    userId: existingUser._id,
-                    email: existingUser.email,
-                    verified: existingUser.verified,
-                },
-                process.env.TOKEN_SECRET
-            );
-            res
-                .cookie("Authorization", "Bearer" + token, {
-                    expires: new Date(Date.now() + 8 * 3600000),
-                    httpOnly: process.env.NODE_ENV === "production",
-                    secure: process.env.NODE_ENV === "production",
-                })
-                .json({
-                    success: true,
-                    message: "Logged in successfully.",
-                    token,
-                    user: existingUser._id,
-                    email: existingUser.email,
-                    verified: existingUser.verified,
-                });
         }
+
+        const result = await doHashValidation(password, existingUser.password);
+        if (!result) {
+            return res
+                .status(401)
+                .json({ success: false, message: "Invalid Credentials" });
+        }
+
+        //jwt token creation
+        const token = jwt.sign(
+            {
+                userId: existingUser._id,
+                email: existingUser.email,
+                verified: existingUser.verified,
+            },
+            process.env.TOKEN_SECRET
+        );
+
+        // Generate a refresh token with a longer expiration
+        const refreshToken = jwt.sign(
+            {
+                userId: existingUser._id,
+                email: existingUser.email,
+            },
+            process.env.REFRESH_TOKEN_SECRET,
+            { expiresIn: '7d' }  // Longer expiration for the refresh token
+        );
+
+        //save the longer token in db
+        existingUser.refreshToken = refreshToken;
+        await existingUser.save();
+
+        res
+            .cookie("Authorization", "Bearer" + token, {
+                expires: new Date(Date.now() + 8 * 3600000),
+                httpOnly: process.env.NODE_ENV === "production",
+                secure: process.env.NODE_ENV === "production",
+            })
+            .cookie("refreshToken", refreshToken, {
+                expires: new Date(Date.now() + 7 * 24 * 3600000),
+                httpOnly: process.env.NODE_ENV === "production",
+                secure: process.env.NODE_ENV === "production",
+            })
+            .json({
+                success: true,
+                message: "Logged in successfully.",
+                token,
+                refreshToken,
+                user: existingUser._id,
+                email: existingUser.email,
+                verified: existingUser.verified,
+            });
+
     } catch (error) {
         console.log(error);
     }

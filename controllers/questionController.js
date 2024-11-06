@@ -1,8 +1,62 @@
 const Question = require("../models/questionModel");
 const { createQuestionSchema } = require("../middlewares/validator");
 
-require('dotenv').config();
+// for openAi integration
+const { OpenAI } = require('openai');
+const openai = new OpenAI({ key: process.env.OPENAI_API_KEY });
 const axios = require('axios');
+
+// for gemini integration
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+
+//Gemini integration
+exports.createQuestion = async (req, res) => {
+    const { title, description } = req.body;
+    const { userId } = req.user;
+  
+    try {
+      // Validate input
+      const { error, value } = createQuestionSchema.validate({
+        title,
+        description,
+        userId,
+      });
+      if (error) {
+        return res
+          .status(401)
+          .json({ success: false, message: error.details[0].message });
+      }
+  
+      // Generate AI answer using Gemini API
+      const prompt = `Question: ${title}\nDescription: ${description}\nAnswer:`;
+      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const response = await model.generateContent(prompt);
+  
+      // Extract the answer from the Gemini response
+      const aiAnswer = response.response.text();
+
+      // Create question in database
+      const result = await Question.create({
+        title,
+        description,
+        userId,
+        answer: aiAnswer,
+      });
+  
+      // Respond with the created question and AI answer
+      res.status(201).json({
+        success: true,
+        message: 'created',
+        data: result
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+  };
+  
 
 exports.getQuestions = async (req, res) => {
     const { page } = req.query;
@@ -48,35 +102,6 @@ exports.getSingleQuestion = async (req, res) => {
     }
 };
 
-// Function to call Anthropic API and generate an answer
-exports.createQuestion = async (req, res) => {
-	const { title, description } = req.body;
-	const { userId } = req.user;
-	try {
-		const { error, value } = createQuestionSchema.validate({
-			title,
-			description,
-			userId,
-		});
-		if (error) {
-			return res
-				.status(401)
-				.json({ success: false, message: error.details[0].message });
-		}
-
-		const result = await Question.create({
-			title,
-			description,
-			userId,
-		});
-		res.status(201).json({ success: true, message: 'created', data: result });
-	} catch (error) {
-		console.log(error);
-	}
-};
-
-
-
 exports.updateQuestion = async (req, res) => {
     const { _id } = req.query;
     const { title, description } = req.body;
@@ -111,7 +136,7 @@ exports.deleteQuestion = async (req, res) => {
     const { _id } = req.query;
     const { userId } = req.body;
     try {
-        const extQuestion = await Post.findOne({ _id });
+        const extQuestion = await Question.findOne({ _id });
         if (!extQuestion) {
             return res
                 .status(404)
@@ -131,3 +156,51 @@ exports.deleteQuestion = async (req, res) => {
         console.log(error);
     }
 };
+
+// OpenAi integration : Not used due to rate limiter
+// exports.createQuestion = async (req, res) => {
+// 	const { title, description } = req.body;
+// 	const { userId } = req.user;
+
+// 	try {
+// 		// Validate input
+// 		const { error, value } = createQuestionSchema.validate({
+// 			title,
+// 			description,
+// 			userId,
+// 		});
+// 		if (error) {
+// 			return res
+// 				.status(401)
+// 				.json({ success: false, message: error.details[0].message });
+// 		}
+
+// 		// Create question in database
+// 		const result = await Question.create({
+// 			title,
+// 			description,
+// 			userId,
+// 		});
+
+// 		// Generate AI answer
+// 		const prompt = `Question: ${title}\nDescription: ${description}\nAnswer:`;
+// 		const response = await openai.chat.completions.create({
+// 			model: "gpt-3.5-turbo",
+// 			messages: [{ role: "user", content: prompt }],
+// 		});
+
+// 		// Extract the answer from the OpenAI response
+// 		const aiAnswer = response.choices[0].message.content.trim();
+
+// 		// Respond with the created question and AI answer
+// 		res.status(201).json({
+// 			success: true,
+// 			message: 'created',
+// 			data: result,
+// 			aiAnswer,
+// 		});
+// 	} catch (error) {
+// 		console.log(error);
+// 		res.status(500).json({ success: false, message: "Internal Server Error" });
+// 	}
+// };

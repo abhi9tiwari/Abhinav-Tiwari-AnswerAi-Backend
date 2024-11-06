@@ -28,6 +28,6 @@ exports.signinSchema = Joi.object({
 
 exports.createQuestionSchema = Joi.object({
   title: Joi.string().min(6).max(600).required(),
-  description: Joi.string().min(10).max(10000).required(),
+  description: Joi.string().min(1).max(10000).required(),
   userId : Joi.string().required(),
 });
