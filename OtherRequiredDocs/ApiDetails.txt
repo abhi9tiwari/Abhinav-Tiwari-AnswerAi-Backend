@@ -1,139 +1,142 @@
-API Documentation : 
 
-Design and Impl of APIs
+API Documentation:
 
-	a)POST /api/users - Creates a new user account and save the new user in database.
-	reqBody :
-	{
-		"email" : "AnswerAi1@gmail.com",
-		"password" : "Tesfdasft@123445"
-	}
-	response : 
-	{
-    "success": true,
-    "message": "Your account has been created successfully.",
-    "result": {
-        "email": "answerai1@gmail.com",
-        "verified": false,
-        "_id": "672b74ef1aed276e52747cdf",
-        "createdAt": "2024-11-06T13:53:51.347Z",
-        "updatedAt": "2024-11-06T13:53:51.347Z",
-        "__v": 0
-    	}
-	}
-		
-	
-	b)GET /api/users/:userId - Retrieve a user profile with a given userId.
-	response : {
-    "success": true,
-    "user": {
-        "_id": "672b74ef1aed276e52747cdf",
-        "email": "answerai1@gmail.com",
-        "verified": false,
-        "createdAt": "2024-11-06T13:53:51.347Z",
-        "updatedAt": "2024-11-06T13:54:05.379Z",
-        "__v": 0
-    	}
-	}
-	
-	c)POST /api/questions - Accept user question, and return AI-generated answer.
-	reqBody : 
-	{
-    "title" : "what is startup",
-    "description" : "Give an overall view about the working of a start-up"
-	}
+Design and Implementation of APIs:
 
-	response : 
-	{
-    "success": true,
-    "message": "created",
-    "data": {
-        "title": "what is startup",
-        "description": "Give an overall view about the working of a start-up",
-        "answer": "## Startup Part 2: The Hustle and Flow\n\n**Building the Dream, Brick by Brick:**\n\nWe've established that a startup is a new venture aiming to solve a problem or meet a need in the market. But **how does it actually work?** This is where the \"startup life\" comes in, a whirlwind of energy, passion, and grit.\n\n**The Core Elements:**\n\n* **The Idea:**  It all starts with a spark - a unique solution, a compelling vision. This idea needs constant refinement, research, and validation to ensure it's both desirable and feasible.\n* **The Team:** A startup isn't a solo mission. You need a team with diverse skills and perspectives. This could be founders, advisors, early employees, or even volunteers. The team dynamic, communication, and collaboration are crucial for success.\n* **The Execution:** Once the idea is validated and the team is assembled, the real work begins. This involves building the product/service, marketing it, acquiring customers, managing finances, and adapting to the ever-changing market landscape.\n* **The Funding:** Startups require capital to grow and scale. This can come from various sources, including personal savings, angel investors, venture capitalists, or crowdfunding.  Securing funding is a constant challenge, requiring a strong pitch, a clear plan, and a compelling story.\n* **The Growth:**  A successful startup isn't just about surviving; it's about thriving. This means attracting users, expanding into new markets, and continuously iterating and improving the product/service. \n\n**The Startup Journey is a Rollercoaster:**\n\n* **Uncertainty:** The path of a startup is full of unknowns. There are no guarantees, and failure is a real possibility.\n* **Agility:**  Flexibility and adaptability are paramount. Startups must be prepared to pivot and change direction quickly based on feedback and market trends.\n* **Resilience:** There will be setbacks, challenges, and moments of doubt. Startups require unwavering determination and resilience to keep pushing forward.\n* **Passion:**  The energy and enthusiasm of the team are contagious and essential to attract investors, customers, and talent.\n\n**Beyond the Hype:**\n\nStartups are often portrayed as glamorous, but the reality is much more grounded. It's a lot of hard work, long hours, and constant learning. It's about building something meaningful, facing challenges head-on, and navigating a complex landscape with a shared purpose. \n\n**The Rewards:**\n\nDespite the challenges, the rewards can be substantial. The opportunity to create something new, disrupt existing markets, and make a real impact on the world is deeply fulfilling. \n\n**In Conclusion:**\n\nA startup is a dynamic entity, constantly evolving and adapting to the changing environment.  It's a journey of creativity, perseverance, and passion, where the ultimate goal is to build a successful and sustainable business that delivers value to customers and the world.",
-        "userId": "672b74ef1aed276e52747cdf",
-        "_id": "672b75431aed276e52747cea",
-        "createdAt": "2024-11-06T13:55:15.437Z",
-        "updatedAt": "2024-11-06T13:55:15.437Z",
-        "__v": 0
-    	}
-	}
+a) POST /api/users - Creates a new user account and saves the new user in the database.
+   Request Body:
+   {
+       "email" : "AnswerAi1@gmail.com",
+       "password" : "Tesfdasft@123445"
+   }
+   Response:
+   {
+       "success": true,
+       "message": "Your account has been created successfully.",
+       "result": {
+           "email": "answerai1@gmail.com",
+           "verified": false,
+           "_id": "672b74ef1aed276e52747cdf",
+           "createdAt": "2024-11-06T13:53:51.347Z",
+           "updatedAt": "2024-11-06T13:53:51.347Z",
+           "__v": 0
+       }
+   }
 
-	d)GET /api/questions/:questionId - Retrieve specific question and answer by question ID.
-	{
-    "success": true,
-    "message": "Question",
-    "data": {
-        "_id": "672b75141aed276e52747ce4",
-        "title": "what is startup",
-        "description": "Give an overall view about the working of a start-up",
-        "answer": "## What is a Startup?\n\nA startup is a young company founded by one or more entrepreneurs to develop and validate a product or service for a specific market.  They are characterized by:\n\n**1.  A Focus on Innovation:** Startups are driven by the development of new, unique products or services, often addressing a specific problem or need. They aim to disrupt existing markets or create entirely new ones.\n\n**2.  High Growth Potential:** Startups strive for rapid expansion, scaling their operations and reaching a large customer base. They often seek funding to fuel their growth and compete with established companies.\n\n**3.  Uncertainty and Risk:** The startup journey is inherently risky. There's no guarantee of success, and many fail. This risk is inherent in the exploration of new ideas and markets.\n\n**4.  Agile and Adaptable:** Startups operate in a constantly changing environment. They need to be flexible, responsive to feedback, and able to pivot their strategies based on market demands.\n\n**5.  Team-Driven Culture:** Startups rely heavily on the passion, dedication, and diverse skills of their founding team. Collaboration, communication, and shared vision are crucial for success.\n\n**How Startups Work:**\n\n1. **Idea Validation:**  Startups start with an idea and test its viability. They conduct market research, gather feedback, and validate the demand for their product or service.\n2. **Product Development:**  Startups build and refine their product or service iteratively, incorporating user feedback and making adjustments based on market response.\n3. **Customer Acquisition:**  Startups focus on acquiring customers and building a user base. They use various marketing and sales strategies to reach their target market.\n4. **Scaling Operations:**  As the company grows, startups expand their operations, hire more staff, and optimize their processes for efficiency and scalability.\n5. **Raising Funding:**  Most startups require funding to support their growth. They often raise money through venture capital, angel investors, or other sources.\n\n**The Startup Ecosystem:**\n\nStartups operate within a complex ecosystem that includes:\n\n* **Investors:** Venture capitalists, angel investors, and other funding sources provide capital for startups.\n* **Incubators and Accelerators:** These organizations offer mentorship, resources, and networking opportunities to startups.\n* **Mentors and Advisors:** Experienced professionals guide startups on various aspects of business development.\n* **Tech Hubs and Communities:** Cities and regions often foster thriving startup ecosystems with co-working spaces, events, and networking opportunities.\n\n**Challenges of a Startup:**\n\n* **Funding:**  Securing sufficient funding can be challenging, particularly in the early stages.\n* **Competition:** Startups often face competition from established companies with larger resources.\n* **Hiring and Talent:**  Attracting and retaining top talent can be difficult for startups.\n* **Market Volatility:**  The startup environment is constantly changing, requiring adaptability and resilience.\n\n**The Benefits of a Startup:**\n\n* **Innovation:**  Startups drive innovation and bring new ideas to market.\n* **Job Creation:**  Startups are significant contributors to job growth in many industries.\n* **Economic Growth:**  Startups drive economic development by creating new businesses and industries.\n* **Personal Fulfillment:**  Starting a company can be a challenging but rewarding experience.\n\n**In conclusion:** Startups are dynamic and innovative entities that play a vital role in the economy.  They offer opportunities for entrepreneurs to pursue their passions, develop new solutions, and contribute to growth and progress.  While the journey is often challenging, the potential for impact and success makes the startup experience both exciting and fulfilling.",
-        "userId": {
-            "_id": "672b74ef1aed276e52747cdf",
-            "email": "answerai1@gmail.com"
-        },
-        "createdAt": "2024-11-06T13:54:28.927Z",
-        "updatedAt": "2024-11-06T13:54:28.927Z",
-        "__v": 0
-    	}
-	}
+b) GET /api/users/:userId - Retrieve a user profile with a given userId.
+   Response:
+   {
+       "success": true,
+       "user": {
+           "_id": "672b74ef1aed276e52747cdf",
+           "email": "answerai1@gmail.com",
+           "verified": false,
+           "createdAt": "2024-11-06T13:53:51.347Z",
+           "updatedAt": "2024-11-06T13:54:05.379Z",
+           "__v": 0
+       }
+   }
 
-	e)GET /api/users/:userId/questions - Retrieve all questions asked by user with a given userId
-	response : {
-    "success": true,
-    "questions": [
-        {
-            "_id": "672b75141aed276e52747ce4",
-            "title": "what is startup",
-            "description": "Give an overall view about the working of a start-up",
-            "answer": "## What is a Startup?\n\nA startup is a young company founded by one or more entrepreneurs to develop and validate a product or service for a specific market.  They are characterized by:\n\n**1.  A Focus on Innovation:** Startups are driven by the development of new, unique products or services, often addressing a specific problem or need. They aim to disrupt existing markets or create entirely new ones.\n\n**2.  High Growth Potential:** Startups strive for rapid expansion, scaling their operations and reaching a large customer base. They often seek funding to fuel their growth and compete with established companies.\n\n**3.  Uncertainty and Risk:** The startup journey is inherently risky. There's no guarantee of success, and many fail. This risk is inherent in the exploration of new ideas and markets.\n\n**4.  Agile and Adaptable:** Startups operate in a constantly changing environment. They need to be flexible, responsive to feedback, and able to pivot their strategies based on market demands.\n\n**5.  Team-Driven Culture:** Startups rely heavily on the passion, dedication, and diverse skills of their founding team. Collaboration, communication, and shared vision are crucial for success.\n\n**How Startups Work:**\n\n1. **Idea Validation:**  Startups start with an idea and test its viability. They conduct market research, gather feedback, and validate the demand for their product or service.\n2. **Product Development:**  Startups build and refine their product or service iteratively, incorporating user feedback and making adjustments based on market response.\n3. **Customer Acquisition:**  Startups focus on acquiring customers and building a user base. They use various marketing and sales strategies to reach their target market.\n4. **Scaling Operations:**  As the company grows, startups expand their operations, hire more staff, and optimize their processes for efficiency and scalability.\n5. **Raising Funding:**  Most startups require funding to support their growth. They often raise money through venture capital, angel investors, or other sources.\n\n**The Startup Ecosystem:**\n\nStartups operate within a complex ecosystem that includes:\n\n* **Investors:** Venture capitalists, angel investors, and other funding sources provide capital for startups.\n* **Incubators and Accelerators:** These organizations offer mentorship, resources, and networking opportunities to startups.\n* **Mentors and Advisors:** Experienced professionals guide startups on various aspects of business development.\n* **Tech Hubs and Communities:** Cities and regions often foster thriving startup ecosystems with co-working spaces, events, and networking opportunities.\n\n**Challenges of a Startup:**\n\n* **Funding:**  Securing sufficient funding can be challenging, particularly in the early stages.\n* **Competition:** Startups often face competition from established companies with larger resources.\n* **Hiring and Talent:**  Attracting and retaining top talent can be difficult for startups.\n* **Market Volatility:**  The startup environment is constantly changing, requiring adaptability and resilience.\n\n**The Benefits of a Startup:**\n\n* **Innovation:**  Startups drive innovation and bring new ideas to market.\n* **Job Creation:**  Startups are significant contributors to job growth in many industries.\n* **Economic Growth:**  Startups drive economic development by creating new businesses and industries.\n* **Personal Fulfillment:**  Starting a company can be a challenging but rewarding experience.\n\n**In conclusion:** Startups are dynamic and innovative entities that play a vital role in the economy.  They offer opportunities for entrepreneurs to pursue their passions, develop new solutions, and contribute to growth and progress.  While the journey is often challenging, the potential for impact and success makes the startup experience both exciting and fulfilling.",
-            "userId": "672b74ef1aed276e52747cdf",
-            "createdAt": "2024-11-06T13:54:28.927Z",
-            "updatedAt": "2024-11-06T13:54:28.927Z",
-            "__v": 0
-        },
-        {
-            "_id": "672b75431aed276e52747cea",
-            "title": "what is startup part 2",
-            "description": "Give an overall view about the working of a start-up",
-            "answer": "## Startup Part 2: The Hustle and Flow\n\n**Building the Dream, Brick by Brick:**\n\nWe've established that a startup is a new venture aiming to solve a problem or meet a need in the market. But **how does it actually work?** This is where the \"startup life\" comes in, a whirlwind of energy, passion, and grit.\n\n**The Core Elements:**\n\n* **The Idea:**  It all starts with a spark - a unique solution, a compelling vision. This idea needs constant refinement, research, and validation to ensure it's both desirable and feasible.\n* **The Team:** A startup isn't a solo mission. You need a team with diverse skills and perspectives. This could be founders, advisors, early employees, or even volunteers. The team dynamic, communication, and collaboration are crucial for success.\n* **The Execution:** Once the idea is validated and the team is assembled, the real work begins. This involves building the product/service, marketing it, acquiring customers, managing finances, and adapting to the ever-changing market landscape.\n* **The Funding:** Startups require capital to grow and scale. This can come from various sources, including personal savings, angel investors, venture capitalists, or crowdfunding.  Securing funding is a constant challenge, requiring a strong pitch, a clear plan, and a compelling story.\n* **The Growth:**  A successful startup isn't just about surviving; it's about thriving. This means attracting users, expanding into new markets, and continuously iterating and improving the product/service. \n\n**The Startup Journey is a Rollercoaster:**\n\n* **Uncertainty:** The path of a startup is full of unknowns. There are no guarantees, and failure is a real possibility.\n* **Agility:**  Flexibility and adaptability are paramount. Startups must be prepared to pivot and change direction quickly based on feedback and market trends.\n* **Resilience:** There will be setbacks, challenges, and moments of doubt. Startups require unwavering determination and resilience to keep pushing forward.\n* **Passion:**  The energy and enthusiasm of the team are contagious and essential to attract investors, customers, and talent.\n\n**Beyond the Hype:**\n\nStartups are often portrayed as glamorous, but the reality is much more grounded. It's a lot of hard work, long hours, and constant learning. It's about building something meaningful, facing challenges head-on, and navigating a complex landscape with a shared purpose. \n\n**The Rewards:**\n\nDespite the challenges, the rewards can be substantial. The opportunity to create something new, disrupt existing markets, and make a real impact on the world is deeply fulfilling. \n\n**In Conclusion:**\n\nA startup is a dynamic entity, constantly evolving and adapting to the changing environment.  It's a journey of creativity, perseverance, and passion, where the ultimate goal is to build a successful and sustainable business that delivers value to customers and the world.",
-            "userId": "672b74ef1aed276e52747cdf",
-            "createdAt": "2024-11-06T13:55:15.437Z",
-            "updatedAt": "2024-11-06T13:55:15.437Z",
-            "__v": 0
-        }
-    ]
-	}
-	
-Implement JWT Auth for the given APIs
-	a)POST /api/auth/login: User login endpoint. 
-	reqBody : 
-	{
-    "email" : "AnswerAi1@gmail.com",
-    "password" : "Tesfdasft@123445"
-	}
-	response : 
-	{
-    "success": true,
-    "message": "Logged in successfully.",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzJiNzRlZjFhZWQyNzZlNTI3NDdjZGYiLCJlbWFpbCI6ImFuc3dlcmFpMUBnbWFpbC5jb20iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTczMDkwMjM1NX0.lWfek469JdntqbJytlfEwoD15tYjA635QJnHFrgbQZc",
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzJiNzRlZjFhZWQyNzZlNTI3NDdjZGYiLCJlbWFpbCI6ImFuc3dlcmFpMUBnbWFpbC5jb20iLCJpYXQiOjE3MzA5MDIzNTUsImV4cCI6MTczMTUwNzE1NX0.NGXqDKuLHyytLoN-iISjHa66PnaU54X0tvCv_9Ryncg",
-    "user": "672b74ef1aed276e52747cdf",
-    "email": "answerai1@gmail.com",
-    "verified": false
-	}
+c) POST /api/questions - Accept user question, and return AI-generated answer.
+   Request Body:
+   {
+       "title" : "what is startup",
+       "description" : "Give an overall view about the working of a start-up"
+   }
+   Response:
+   {
+       "success": true,
+       "message": "created",
+       "data": {
+           "title": "what is startup",
+           "description": "Give an overall view about the working of a start-up",
+           "answer": "AI generated answer here...",
+           "userId": "672b74ef1aed276e52747cdf",
+           "_id": "672b75431aed276e52747cea",
+           "createdAt": "2024-11-06T13:55:15.437Z",
+           "updatedAt": "2024-11-06T13:55:15.437Z",
+           "__v": 0
+       }
+   }
 
-	b)POST /api/auth/logout: User logout endpoint.
-	response : 
-	{
-    "success": true,
-    "message": "logged out successfully"
-	}
+d) GET /api/questions/:questionId - Retrieve specific question and answer by question ID.
+   Response:
+   {
+       "success": true,
+       "message": "Question",
+       "data": {
+           "_id": "672b75141aed276e52747ce4",
+           "title": "what is startup",
+           "description": "Give an overall view about the working of a start-up",
+           "answer": "AI generated answer here...",
+           "userId": {
+               "_id": "672b74ef1aed276e52747cdf",
+               "email": "answerai1@gmail.com"
+           },
+           "createdAt": "2024-11-06T13:54:28.927Z",
+           "updatedAt": "2024-11-06T13:54:28.927Z",
+           "__v": 0
+       }
+   }
 
-	c)POST /api/auth/refresh: Refresh access token endpoint.
-	response : 
-	{
-    "success": true,
-    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzJiNzRlZjFhZWQyNzZlNTI3NDdjZGYiLCJlbWFpbCI6ImFuc3dlcmFpMUBnbWFpbC5jb20iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTczMDkwMTMzOSwiZXhwIjoxNzMwOTAyMjM5fQ.H_o-8Y4QYbIUWyGufh0pCiOyhm4lRBr-MC20cQez6H8",
-    "message": "Token refreshed successfully"
-	}
+e) GET /api/users/:userId/questions - Retrieve all questions asked by user with a given userId.
+   Response:
+   {
+       "success": true,
+       "questions": [
+           {
+               "_id": "672b75141aed276e52747ce4",
+               "title": "what is startup",
+               "description": "Give an overall view about the working of a start-up",
+               "answer": "AI generated answer here...",
+               "userId": "672b74ef1aed276e52747cdf",
+               "createdAt": "2024-11-06T13:54:28.927Z",
+               "updatedAt": "2024-11-06T13:54:28.927Z",
+               "__v": 0
+           },
+           {
+               "_id": "672b75431aed276e52747cea",
+               "title": "what is startup part 2",
+               "description": "Give an overall view about the working of a start-up",
+               "answer": "AI generated answer here...",
+               "userId": "672b74ef1aed276e52747cdf",
+               "createdAt": "2024-11-06T13:55:15.437Z",
+               "updatedAt": "2024-11-06T13:55:15.437Z",
+               "__v": 0
+           }
+       ]
+   }
+
+JWT Authentication for APIs:
+
+a) POST /api/auth/login: User login endpoint.
+   Request Body:
+   {
+       "email" : "AnswerAi1@gmail.com",
+       "password" : "Tesfdasft@123445"
+   }
+   Response:
+   {
+       "success": true,
+       "message": "Logged in successfully.",
+       "token": "JWT access token here",
+       "refreshToken": "JWT refresh token here",
+       "user": "672b74ef1aed276e52747cdf",
+       "email": "answerai1@gmail.com",
+       "verified": false
+   }
+
+b) POST /api/auth/logout: User logout endpoint.
+   Response:
+   {
+       "success": true,
+       "message": "logged out successfully"
+   }
+
+c) POST /api/auth/refresh: Refresh access token endpoint.
+   Response:
+   {
+       "success": true,
+       "accessToken": "New JWT access token here",
+       "message": "Token refreshed successfully"
+   }
