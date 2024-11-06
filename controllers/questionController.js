@@ -59,20 +59,8 @@ exports.createQuestion = async (req, res) => {
   
 
 exports.getQuestions = async (req, res) => {
-    const { page } = req.query;
-    const questionPerPage = 10;
-
     try {
-        let pageNum = 0;
-        if (page <= 1) {
-            pageNum = 0;
-        } else {
-            pageNum = page - 1;
-        }
         const result = await Question.find()
-            .sort({ createdAt: -1 })
-            .skip(pageNum * questionPerPage)
-            .limit(questionPerPage)
             .populate({
                 path: "userId",
                 select: "email",
