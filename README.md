@@ -49,7 +49,7 @@ This application is a scalable API service that allows users to submit questions
 4. Start the application:
    bash
    npm start
-   
+
 ### Environment Variables
 
 Create a `.env` file in the root directory and set the following environment variables:
@@ -73,4 +73,4 @@ To run the app in a Docker container:
    docker run -p 8000:8000
 
 
-Replace placeholders (like `your-mongodb-connection-string`, `your-openai-api-key`, etc.) with actual values or instructions on where to obtain them. All the other related docs are added in <otherRequiredDocs> folder please take a look.
+Replace placeholders (like `your-mongodb-connection-string`, `your-openai-api-key`, etc.) with actual values or instructions on where to obtain them. All the other related docs are added in otherRequiredDocs folder please take a look.
